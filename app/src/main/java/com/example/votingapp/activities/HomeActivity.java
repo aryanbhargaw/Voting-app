@@ -116,19 +116,16 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         SharedPreferences.Editor pref = sharedPreferences.edit();
-         switch(id) {
-            case R.id.show_result:
-
+        if (id == R.id.show_result) {
                 return true;
-            case R.id.log_out:
+            }else if(id == R.id.log_out){
                 FirebaseAuth.getInstance().signOut();
                 pref.putBoolean(IsLogIn, false);
                 pref.commit();
                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
                 finish();
                 return true;
-
-            default:
+            }else{
                 return super.onOptionsItemSelected(item);
         }
     }
