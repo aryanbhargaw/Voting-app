@@ -17,6 +17,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VotingApp">
         <activity
+            android:name=".activities.ResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.VotingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AllCandidateActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.Create_Candidate_Activity"
             android:exported="false" />
         <activity

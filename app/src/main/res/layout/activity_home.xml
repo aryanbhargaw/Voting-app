@@ -55,16 +55,32 @@
 
     <Button
         android:id="@+id/admin_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Create"
-        android:visibility="gone"
-        android:textAlignment="center"
+        android:layout_width="168dp"
+        android:layout_height="59dp"
         android:backgroundTint="@color/black"
+        android:padding="16dp"
+        android:text="Create Candidate"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/circle_image"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/circle_image"
         app:layout_constraintTop_toBottomOf="@+id/circle_image" />
+
+    <Button
+        android:id="@+id/candidate_create_voting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        android:text="Start Voting"
+        android:visibility="gone"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/black"
+        app:layout_constraintTop_toTopOf="@id/admin_btn"
+        app:layout_constraintBottom_toBottomOf="@id/admin_btn"
+        app:layout_constraintStart_toEndOf="@id/admin_btn"/>
     <Button
         android:id="@+id/give_vote"
         android:layout_width="match_parent"
@@ -74,6 +90,7 @@
         android:layout_marginTop="16dp"
         android:padding="16dp"
         android:text="Post"
+        android:visibility="gone"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

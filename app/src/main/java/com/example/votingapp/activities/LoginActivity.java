@@ -133,17 +133,17 @@ public class LoginActivity extends AppCompatActivity {
                                  imagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                      @Override
                                      public void onSuccess(Uri uri) {
-                                         Map<String, Object> map = new HashMap<>();
-                                         map.put("name", name);
-                                         map.put("email", email);
-                                         map.put("password", password);
-                                         map.put("nationalId", nationalId);
-                                         map.put("image", uri.toString());
-                                         map.put("uid", uid);
+                                         Map<String, Object> Users  = new HashMap<>();
+                                         Users.put("name", name);
+                                         Users.put("email", email);
+                                         Users.put("password", password);
+                                         Users.put("nationalId", nationalId);
+                                         Users.put("image", uri.toString());
+                                         Users.put("uid", uid);
 
                                          firebaseFirestore.collection("Users")
                                                  .document(uid)
-                                                 .set(map)
+                                                 .set(Users)
                                                  .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                      @Override
                                                      public void onComplete(@NonNull Task<Void> task) {

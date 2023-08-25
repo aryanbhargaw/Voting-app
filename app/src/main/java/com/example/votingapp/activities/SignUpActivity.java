@@ -39,7 +39,7 @@
 
     public static final String PREFERENCES = "prefKey";
     public static final String Name = "nameKey";
-    public static final String Email= "emailey";
+    public static final String Email= "emailkey";
     public static final String Password = "passwordKey";
     public static final String NationalId = "nationalIdKey";
     public static final String Image = "imageKey";
@@ -176,7 +176,7 @@
                   mainUri = result.getUri();
                   userProfile.setImageURI(mainUri);
 
-              } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+              } else if  (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                   Exception error = result.getError();
               }
           }
