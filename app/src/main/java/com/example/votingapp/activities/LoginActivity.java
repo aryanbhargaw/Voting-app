@@ -1,8 +1,5 @@
 package com.example.votingapp.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -12,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.votingapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String PREFERENCES = "prefKey";
     public static final String Name = "nameKey";
-    public static final String Email= "emailey";
+    public static final String Email= "emailKey";
     public static final String Password = "passwordKey";
     public static final String NationalId = "nationalIdKey";
     public static final String Image = "imageKey";
@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                  String name = sharedPreferences.getString(Name, null);
                  String password = sharedPreferences.getString(Password, null);
                  String email = sharedPreferences.getString(Email, null);
-                 String nationalId = sharedPreferences.getString(NationalId, null);
+                 String   nationalId = sharedPreferences.getString(NationalId, null);
                  String image = sharedPreferences.getString(Image, null);
 
                  //first we sent email for verification
@@ -133,17 +133,17 @@ public class LoginActivity extends AppCompatActivity {
                                  imagePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                      @Override
                                      public void onSuccess(Uri uri) {
-                                         Map<String, Object> Users  = new HashMap<>();
-                                         Users.put("name", name);
-                                         Users.put("email", email);
-                                         Users.put("password", password);
-                                         Users.put("nationalId", nationalId);
-                                         Users.put("image", uri.toString());
-                                         Users.put("uid", uid);
+                                         Map<String, String> map  = new HashMap<>();
+                                         map.put("name", name);
+                                         map.put("email", email);
+                                         map.put("password", password);
+                                         map.put("nationalId", nationalId);
+                                         map.put("image", uri.toString());
+                                         map.put("uid", uid);
 
                                          firebaseFirestore.collection("Users")
                                                  .document(uid)
-                                                 .set(Users)
+                                                 .set(map)
                                                  .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                      @Override
                                                      public void onComplete(@NonNull Task<Void> task) {

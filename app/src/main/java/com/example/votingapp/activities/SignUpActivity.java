@@ -32,14 +32,14 @@
 
   public class SignUpActivity extends AppCompatActivity {
     private CircleImageView userProfile;
-    private EditText userName,userPassword,userEmail,usernationalId;
+    private EditText userName,userPassword,userEmail,userNationalId;
     private Button signUpBtn;
     private Uri mainUri=null;
     private FirebaseAuth mAuth;
 
     public static final String PREFERENCES = "prefKey";
     public static final String Name = "nameKey";
-    public static final String Email= "emailkey";
+    public static final String Email= "emailKey";
     public static final String Password = "passwordKey";
     public static final String NationalId = "nationalIdKey";
     public static final String Image = "imageKey";
@@ -64,7 +64,7 @@
         userName = findViewById(R.id.user_name);
         userPassword = findViewById(R.id.user_password);
         userEmail = findViewById(R.id.user_email);
-        usernationalId = findViewById(R.id.user_national_id);
+        userNationalId = findViewById(R.id.user_national_id);
         signUpBtn = findViewById(R.id.signup_btn);
         mAuth = FirebaseAuth.getInstance();
 
@@ -90,7 +90,7 @@
                  name = userName.getText().toString().trim();
                  password = userEmail.getText().toString().trim();
                  email = userEmail.getText().toString().trim();
-                 nationalId = usernationalId.getText().toString().trim();
+                 nationalId = userNationalId.getText().toString().trim();
 
 
                 if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(email)&&
@@ -147,7 +147,7 @@
 
                         //email sent
                         Toast.makeText(SignUpActivity.this, "Email Sent", Toast.LENGTH_SHORT).show();
-                       FirebaseAuth.getInstance().signOut();
+                       mAuth.getInstance().signOut();
                        startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
                        finish();
                     }else{
