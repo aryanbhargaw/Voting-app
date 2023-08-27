@@ -1,0 +1,58 @@
+Subject: [PATCH] Merge remote-tracking branch 'origin/master'
+
+# Conflicts:
+#	app/src/main/java/com/example/votingapp/activities/HomeActivity.java
+---
+Index: app/src/main/java/com/example/votingapp/activities/HomeActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/votingapp/activities/HomeActivity.java b/app/src/main/java/com/example/votingapp/activities/HomeActivity.java
+--- a/app/src/main/java/com/example/votingapp/activities/HomeActivity.java	(revision 349d6cee743c5ed9713f8a8a05b742ed7d861f13)
++++ b/app/src/main/java/com/example/votingapp/activities/HomeActivity.java	(date 1693121330329)
+@@ -35,7 +35,7 @@
+     private String uid;
+     private FirebaseFirestore firebaseFirestore;
+     private Button createBtn, voteBtn;
+-    //public static  int show_result = 1000023;
++
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+@@ -116,20 +116,19 @@
+     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+         int id = item.getItemId();
+         SharedPreferences.Editor pref = sharedPreferences.edit();
+-             if (id == R.id.show_result) {
+-
+-                 return true;
+-             } else if (id == R.id.log_out) {
+-                 FirebaseAuth.getInstance().signOut();
+-                 pref.putBoolean(IsLogIn, false);
+-                 pref.commit();
+-                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+-                 finish();
+-                 return true;
+-             } else {
+-                 return super.onOptionsItemSelected(item);
+-             }
+-             }
+-         }
++        if (id == R.id.show_result){
++            return true;
++         }else if(id ==  R.id.log_out){
++            FirebaseAuth.getInstance().signOut();
++            pref.putBoolean(IsLogIn, false);
++            pref.commit();
++            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
++            finish();
++            return true;
++
++         }else{
++                return super.onOptionsItemSelected(item);
++            }
++        }
++    }
+ 
+-

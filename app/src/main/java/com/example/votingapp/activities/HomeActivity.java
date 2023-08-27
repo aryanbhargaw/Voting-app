@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
     private String uid;
     private FirebaseFirestore firebaseFirestore;
     private Button createBtn, voteBtn;
-    //public static  int show_result = 1000023;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,20 +116,19 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         SharedPreferences.Editor pref = sharedPreferences.edit();
-             if (id == R.id.show_result) {
+        if (id == R.id.show_result){
+            return true;
+         }else if(id ==  R.id.log_out){
+            FirebaseAuth.getInstance().signOut();
+            pref.putBoolean(IsLogIn, false);
+            pref.commit();
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            finish();
+            return true;
 
-                 return true;
-             } else if (id == R.id.log_out) {
-                 FirebaseAuth.getInstance().signOut();
-                 pref.putBoolean(IsLogIn, false);
-                 pref.commit();
-                 startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                 finish();
-                 return true;
-             } else {
-                 return super.onOptionsItemSelected(item);
-             }
-             }
-         }
-
+         }else{
+                return super.onOptionsItemSelected(item);
+            }
+        }
+    }
 
