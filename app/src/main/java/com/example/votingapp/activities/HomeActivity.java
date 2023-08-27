@@ -18,6 +18,7 @@ import com.example.votingapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -34,6 +35,9 @@ public class HomeActivity extends AppCompatActivity {
     private TextView nameTxt, nationalIdTxt;
     private String uid;
     private FirebaseFirestore firebaseFirestore;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+
     private Button createBtn, voteBtn;
     //public static  int show_result = 1000023;
 
@@ -43,13 +47,18 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        mAuth= FirebaseAuth.getInstance();
+
+        currentUser = mAuth.getCurrentUser();
+        uid = currentUser.getUid();
 
         circleImg = findViewById(R.id.circle_image);
         nameTxt = findViewById(R.id.name);
         nationalIdTxt = findViewById(R.id.national_id);
         createBtn = findViewById(R.id.admin_btn);
         voteBtn = findViewById(R.id.give_vote);
+
+        nameTxt.setText(currentUser.getDisplayName());
 
 
         sharedPreferences = getApplicationContext().getSharedPreferences(PREFERENCES, MODE_PRIVATE);

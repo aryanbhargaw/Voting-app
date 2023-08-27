@@ -1,5 +1,7 @@
 package com.example.votingapp.activities;
 
+import static java.sql.DriverManager.println;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +30,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText userEmail,userPassword;
@@ -51,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +65,18 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences(PREFERENCES,MODE_PRIVATE);
          reference = FirebaseStorage.getInstance().getReference();
          firebaseFirestore = FirebaseFirestore.getInstance();
+         mAuth= FirebaseAuth.getInstance();
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Toast.makeText(LoginActivity.this, currentUser.getDisplayName()+" is Login",
+                    Toast.LENGTH_SHORT).show();
+            mAuth.signOut();
+
+//            Log.d("userFound","true");
+        }
+
 
         findViewById(R.id.dont_have_acc).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,17 +99,40 @@ public class LoginActivity extends AppCompatActivity {
                 String password=userPassword.getText().toString().trim();
 
 
-                mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            verifyEmail();
-                        }else{
-                            Toast.makeText(LoginActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
-                        }
+//                Log.d("testing: ", Objects.requireNonNull(auth.getUid()));
+//                mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful()){
+//                            verifyEmail();
+//                            Toast.makeText(LoginActivity.this, "succes", Toast.LENGTH_SHORT).show();
+//                        }else{
+//                            Toast.makeText(LoginActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                    }
+//                });
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Log.d("login", "signInWithEmail:success");
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    if(user!=null)
+                                        verifyEmail(user);
+                                    Toast.makeText(LoginActivity.this, "Authentication Success.",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.w("login", "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
 
-                    }
-                });
+                                }
+                            }
+                        });
 
             }
         });
@@ -104,10 +145,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void verifyEmail() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        assert user != null;
+    private void verifyEmail(FirebaseUser user) {
         if(user.isEmailVerified()){
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
              boolean bol = sharedPreferences.getBoolean(UploadData,false);
              if(bol){
                  //if email is verifed and data is already uploaded then we do not need to upload it again

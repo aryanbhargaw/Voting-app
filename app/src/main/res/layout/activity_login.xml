@@ -93,4 +93,19 @@
         app:layout_constraintStart_toStartOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/cardView"/>
 
+    <TextView
+        android:id="@+id/account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:text="No Account"
+        app:layout_constraintBottom_toBottomOf="@id/dont_have_acc"
+        app:layout_constraintEnd_toEndOf="@+id/dont_have_acc"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
